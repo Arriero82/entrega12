@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Chat</h3>
+    <form onsubmit="return addMessage(this)">
+        <input type="text" name="username" id="username" placeholder="ingrese nombre">
+        <input type="text" id="text" id="text" placeholder="Escribe tu mensaje">
+        <button>Enviar</button>
+    </form>
+    
+    <div id="listaMensajes"></div>
+
+    <script src="main.js"></script>
+</body>
+</html>

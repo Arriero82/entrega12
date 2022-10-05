@@ -1,0 +1,43 @@
+h1 {
+  font-size: 30px;
+}
+
+h2 {
+  font-size: 30px;  
+  color: black;
+  text-align: center;
+}
+
+#listaProductos {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+p{
+  text-align: center;
+}
+
+.articulos {
+  color: blue;
+  text-align: center;
+  padding: 20px;
+}
+
+.articulos img {
+  min-width: 500px;
+  object-fit: cover;
+  max-height: 250px;
+}
+
+.form {
+  text-align: left;
+  font-size: 20px;
+  margin: 20px;
+}
+
+.form label,
+input {
+  margin: 5px;
+}
