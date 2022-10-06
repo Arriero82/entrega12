@@ -1,26 +1,17 @@
 const express = require("express");
 const { Router } = express;
-const Products = require('../../../container/Container');
+const Products = require('../products/container/Container');
 const products = new Products("../database/file.json");
 const router = Router();
 
 router.get('/productos', async (req, res) => {
   const prod = await products.getAll();
   try {
-    res.status(200).render('pages/productos',{prod})
-  } catch (error) {
-    res.send([]);
-  } 
-});
-
-router.get('/', async (req, res) => {
-  const prod = await products.getAll();
-  try {
     res.status(200).render('pages/index',{prod})
   } catch (error) {
     res.send([]);
   } 
-}); 
+});
 
 router.post('/', async (req, res) => {      
   const prod = await products.save(req.body);
@@ -35,7 +26,7 @@ router.get("/productos/:id", async (req, res) => {
   const { id } = req.params;
   prod = await products.getById(id);
   try {
-    res.status(200).render('pages/index',{prod})
+    res.status(200).render('main', {layout: 'layout1',prod})
   } catch (error) {
     res.send([]);
   }
@@ -54,7 +45,7 @@ router.put("/:id", async (req, res) => {
 });
 
 router.delete("/:id", async (req, res) => {
-    const { id } = req.params;  
+    const { id } = req.params;
     const prod = await products.deleteById(id);
   res.send(`producto eliminado`);
 });

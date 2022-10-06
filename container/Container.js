@@ -1,44 +1,44 @@
-const {promises:fs} = require('fs');
+const fs = require('fs');
 class Products{
     constructor(path){  
         this.path = path;
     }
-    async getAll(){ 
-        try {
-            let datos = await fs.readFile(this.path, 'utf-8')
+    getAll(){ 
+        let datos = fs.readFileSync(this.path, 'utf-8')
+        if(datos.length > 0){
             let jsonDatos = JSON.parse(datos);  
             return jsonDatos;
-        } catch (error) {       
-            console.log(error);  
+        }else{
             return []
         }
     }
-    async save(obj){
-        let objs = await this.getAll();
+
+    save(obj){
+        let objs = this.getAll();
         if(objs.length !== 0){
             let data = [...objs, {...obj, id: objs[objs.length-1].id + 1} ]
-            await fs.writeFile(this.path, JSON.stringify(data))
+            fs.writeFileSync(this.path, JSON.stringify(data))
             return data;
         }else{
             let data = [{...obj, id: 1}]
-            await fs.writeFile(this.path, JSON.stringify(data))
+            fs.writeFileSync(this.path, JSON.stringify(data))
             return data;
         }
     }
-    async getById(id){
-        let objs = await this.getAll();
+    getById(id){
+        let objs = this.getAll();
         let obj = objs.filter(obj => obj.id == id);
         if(obj.length==0){
             return {error: 'producto no encontrado'};
         }
         return obj;
     }
-    async edit(obj){
-        let objs = await this.getAll();
+    edit(obj){
+        let objs = this.getAll();
         let index = objs.findIndex(o => o.id == obj.id);
         objs[index] = obj;
         try {
-            await fs.writeFile(this.path, JSON.stringify(objs, null, 2));
+            fs.writeFileSync(this.path, JSON.stringify(objs, null, 2));
         } catch (error) {
             return []
         }
@@ -47,7 +47,7 @@ class Products{
         let objs = await this.getAll();
         let obj = objs.filter(o => o.id != id);        
         try {
-            await fs.writeFile(this.path, JSON.stringify(obj, null, 2));
+            fs.writeFileSync(this.path, JSON.stringify(obj, null, 2));
         } catch (error) {
             return `No se puede borrar ese registro`
         }
